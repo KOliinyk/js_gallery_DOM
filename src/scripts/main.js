@@ -5,16 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = document.getElementById('thumbs');
 
   thumbs.addEventListener('click', (e) => {
-    e.preventDefault(); // Забороняємо перехід по посиланню
+    e.preventDefault();
 
-    const target = e.target;
+    let link = null;
 
-    if (target.tagName === 'IMG' && target.closest('a')) {
-      const link = target.closest('a');
+    if (e.target.tagName === 'IMG') {
+      link = e.target.closest('a');
+    } else if (e.target.tagName === 'A') {
+      link = e.target;
+    }
+
+    if (link) {
       const newSrc = link.getAttribute('href');
+      const newAlt = link.getAttribute('title');
 
       largeImg.setAttribute('src', newSrc);
-      largeImg.setAttribute('alt', link.getAttribute('title'));
+      largeImg.setAttribute('alt', newAlt);
     }
   });
 });
